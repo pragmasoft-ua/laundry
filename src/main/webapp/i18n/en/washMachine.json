@@ -1,0 +1,22 @@
+{
+    "laundryApp": {
+        "washMachine" : {
+            "home": {
+                "title": "Wash Machines",
+                "createLabel": "Create a new Wash Machine",
+                "createOrEditLabel": "Create or edit a Wash Machine"
+            },
+            "created": "A new Wash Machine is created with identifier {{ param }}",
+            "updated": "A Wash Machine is updated with identifier {{ param }}",
+            "deleted": "A Wash Machine is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Wash Machine {{ id }}?"
+            },
+            "detail": {
+                "title": "Wash Machine"
+            },
+            "capacity": "Capacity",
+            "available": "Available"
+        }
+    }
+}

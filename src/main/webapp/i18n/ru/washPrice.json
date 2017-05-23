@@ -1,0 +1,22 @@
+{
+    "laundryApp": {
+        "washPrice" : {
+            "home": {
+                "title": "Wash Prices",
+                "createLabel": "Создать новый Wash Price",
+                "createOrEditLabel": "Создать или отредактировать Wash Price"
+            },
+            "created": "Новый Wash Price создан с идентификатором {{ param }}",
+            "updated": "Wash Price обновлен с идентификатором {{ param }}",
+            "deleted": "Wash Price удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Wash Price {{ id }}?"
+            },
+            "detail": {
+                "title": "Wash Price"
+            },
+            "priceKgHour": "Price Kg Hour",
+            "efferctiveTo": "Efferctive To"
+        }
+    }
+}

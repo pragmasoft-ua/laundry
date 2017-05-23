@@ -1,0 +1,78 @@
+<div>
+    <h2>
+        <span jhiTranslate="laundryApp.order.home.title">Orders</span>
+        <button class="btn btn-primary float-right create-order" [routerLink]="['/', { outlets: { popup: ['order-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="laundryApp.order.home.createLabel">
+            Create new Order
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="orders">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="laundryApp.order.startOn">Start On</span></th>
+            <th><span jhiTranslate="laundryApp.order.durationHours">Duration Hours</span></th>
+            <th><span jhiTranslate="laundryApp.order.weightKg">Weight Kg</span></th>
+            <th><span jhiTranslate="laundryApp.order.total">Total</span></th>
+            <th><span jhiTranslate="laundryApp.order.customer">Customer</span></th>
+            <th><span jhiTranslate="laundryApp.order.price">Price</span></th>
+            <th><span jhiTranslate="laundryApp.order.machine">Machine</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let order of orders ;trackBy: trackId">
+                <td><a [routerLink]="['../order', order.id ]">{{order.id}}</a></td>
+                <td>{{order.startOn | date:'medium'}}</td>
+                <td>{{order.durationHours}}</td>
+                <td>{{order.weightKg}}</td>
+                <td>{{order.total}}</td>
+                <td>
+                    {{order.customer?.login}}
+                </td>
+                <td>
+                    <div *ngIf="order.price">
+                        <a [routerLink]="['../wash-price', order.price?.id ]" >{{order.price?.priceKgHour}}</a>
+                    </div>
+                </td>
+                <td>
+                    <span *ngFor="let machine of order.machines; let last = last">
+                            <a class="form-control-static" [routerLink]="['../wash-machine', machine?.id ]">{{machine.id}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../order', order.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'order/'+ order.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'order/'+ order.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

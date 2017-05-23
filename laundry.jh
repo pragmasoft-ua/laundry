@@ -1,0 +1,27 @@
+entity WashMachine {
+	capacity Integer required min(0) max(100),
+	available Boolean
+}
+
+entity Order {
+	startOn ZonedDateTime required,
+	durationHours Integer required min(0) max(8),
+	weightKg Integer required min(0) max(100),
+	total BigDecimal required min(0)
+}
+
+entity WashPrice {
+	priceKgHour BigDecimal required min(0),
+	efferctiveTo ZonedDateTime
+}
+
+relationship ManyToOne {
+	Order{customer(login)} to User,
+	Order{price(priceKgHour)} to WashPrice
+}
+
+relationship ManyToMany {
+	Order{machine} to WashMachine
+}
+
+#fontSize: 20

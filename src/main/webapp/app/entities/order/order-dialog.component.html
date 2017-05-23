@@ -1,0 +1,130 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myOrderLabel" jhiTranslate="laundryApp.order.home.createOrEditLabel">Create or edit a Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!order.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="order.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="laundryApp.order.startOn" for="field_startOn">Start On</label>
+            <div class="d-flex">
+                <input id="field_startOn" type="datetime-local" class="form-control" name="startOn" [(ngModel)]="order.startOn"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.startOn?.dirty && editForm.controls.startOn?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.startOn?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.startOn?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="laundryApp.order.durationHours" for="field_durationHours">Duration Hours</label>
+            <input type="number" class="form-control" name="durationHours" id="field_durationHours"
+                [(ngModel)]="order.durationHours"
+            required min="0" max="8" />
+            <div [hidden]="!(editForm.controls.durationHours?.dirty && editForm.controls.durationHours?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.durationHours?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.durationHours?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.durationHours?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 8 }">
+                    This field cannot be more than 8.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.durationHours?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="laundryApp.order.weightKg" for="field_weightKg">Weight Kg</label>
+            <input type="number" class="form-control" name="weightKg" id="field_weightKg"
+                [(ngModel)]="order.weightKg"
+            required min="0" max="100" />
+            <div [hidden]="!(editForm.controls.weightKg?.dirty && editForm.controls.weightKg?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.weightKg?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.weightKg?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.weightKg?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 100 }">
+                    This field cannot be more than 100.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.weightKg?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="laundryApp.order.total" for="field_total">Total</label>
+            <input type="number" class="form-control" name="total" id="field_total"
+                [(ngModel)]="order.total"
+            required min="0" />
+            <div [hidden]="!(editForm.controls.total?.dirty && editForm.controls.total?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.total?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.total?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.total?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="laundryApp.order.customer" for="field_customer">Customer</label>
+            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="order.customer" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === order.customer?.id ? order.customer : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="laundryApp.order.price" for="field_price">Price</label>
+            <select class="form-control" id="field_price" name="price" [(ngModel)]="order.price" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="washPriceOption.id === order.price?.id ? order.price : washPriceOption" *ngFor="let washPriceOption of washprices; trackBy: trackWashPriceById">{{washPriceOption.priceKgHour}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="laundryApp.order.machine" for="field_machine">Machine</label>
+            <select class="form-control" id="field_machine" multiple name="machine" [(ngModel)]="order.machines">
+                <option [ngValue]="getSelected(order.machines, washMachineOption)" *ngFor="let washMachineOption of washmachines; trackBy: trackWashMachineById">{{washMachineOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
