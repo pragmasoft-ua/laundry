@@ -2,11 +2,11 @@
     "laundryApp": {
         "washMachine" : {
             "home": {
-                "title": "Wash Machines",
-                "createLabel": "Создать новый Wash Machine",
-                "createOrEditLabel": "Создать или отредактировать Wash Machine"
+                "title": "Стиральные машины",
+                "createLabel": "Создать новую стиральную машину",
+                "createOrEditLabel": "Создать или отредактировать стиральную машинуe"
             },
-            "created": "Новый Wash Machine создан с идентификатором {{ param }}",
+            "created": "Новая стиральная машина создана с параметром {{ param }}",
             "updated": "Wash Machine обновлен с идентификатором {{ param }}",
             "deleted": "Wash Machine удален с идентификатором {{ param }}",
             "delete": {

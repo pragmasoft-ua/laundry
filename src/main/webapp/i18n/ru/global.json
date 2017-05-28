@@ -6,10 +6,10 @@
             "home": "Главная",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
-                "main": "Сущности",
-                "washMachine": "Wash Machine",
-                "order": "Order",
-                "washPrice": "Wash Price",
+                "main": "Заказы",
+                "washMachine": "Стиральные машины",
+                "order": "Заказы",
+                "washPrice": "Стоимость стирки",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -56,6 +56,12 @@
                 "register": {
                     "noaccount": "У вас нет аккаунта?",
                     "link": "Создать новый аккаунт"
+                },
+                "intro": {
+                    "prefix": "Зарегистрируйтесь, тогда вы сможете ",
+                    "create_order": "оформить заказ",
+                    "or": "либо ",
+                    "view_orders": "просмотреть существующие заказы"
                 }
             },
             "error": {
