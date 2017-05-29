@@ -2,21 +2,21 @@
     "laundryApp": {
         "washPrice" : {
             "home": {
-                "title": "Wash Prices",
-                "createLabel": "Создать новый Wash Price",
-                "createOrEditLabel": "Создать или отредактировать Wash Price"
+                "title": "Цена стирки",
+                "createLabel": "Создать новую цену",
+                "createOrEditLabel": "Создать или отредактировать цену"
             },
-            "created": "Новый Wash Price создан с идентификатором {{ param }}",
-            "updated": "Wash Price обновлен с идентификатором {{ param }}",
-            "deleted": "Wash Price удален с идентификатором {{ param }}",
+            "created": "Новая цена создана с идентификатором {{ param }}",
+            "updated": "Цена обновлена с идентификатором {{ param }}",
+            "deleted": "Цена удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Wash Price {{ id }}?"
+                "question": "Вы уверены что хотите удалить цену {{ id }}?"
             },
             "detail": {
-                "title": "Wash Price"
+                "title": "Цена стирки"
             },
-            "priceKgHour": "Price Kg Hour",
-            "efferctiveTo": "Efferctive To"
+            "priceKgHour": "Цена кг ч",
+            "efferctiveTo": "Действует до"
         }
     }
 }

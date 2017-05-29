@@ -7,16 +7,16 @@
                 "createOrEditLabel": "Создать или отредактировать стиральную машинуe"
             },
             "created": "Новая стиральная машина создана с параметром {{ param }}",
-            "updated": "Wash Machine обновлен с идентификатором {{ param }}",
-            "deleted": "Wash Machine удален с идентификатором {{ param }}",
+            "updated": "Стиральная машина обновлена с идентификатором {{ param }}",
+            "deleted": "Стиральная машина удалена с идентификатором {{ param }}",
             "delete": {
-                "question": "Вы уверены что хотите удалить Wash Machine {{ id }}?"
+                "question": "Вы уверены что хотите удалить Стиральную машину {{ id }}?"
             },
             "detail": {
-                "title": "Wash Machine"
+                "title": "Стиральная машина"
             },
-            "capacity": "Capacity",
-            "available": "Available"
+            "capacity": "Вместимость",
+            "available": "Доступность"
         }
     }
 }
