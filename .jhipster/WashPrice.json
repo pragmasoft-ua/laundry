@@ -1,0 +1,24 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "priceKgHour",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "efferctiveTo",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170523090844",
+    "entityTableName": "wash_price",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

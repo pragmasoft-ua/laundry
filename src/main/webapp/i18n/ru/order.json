@@ -1,0 +1,27 @@
+{
+    "laundryApp": {
+        "order" : {
+            "home": {
+                "title": "Orders",
+                "createLabel": "Создать новый Order",
+                "createOrEditLabel": "Создать или отредактировать Order"
+            },
+            "created": "Новый Order создан с идентификатором {{ param }}",
+            "updated": "Order обновлен с идентификатором {{ param }}",
+            "deleted": "Order удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Order"
+            },
+            "startOn": "Start On",
+            "durationHours": "Duration Hours",
+            "weightKg": "Weight Kg",
+            "total": "Total",
+            "customer": "Customer",
+            "price": "Price",
+            "machine": "Machine"
+        }
+    }
+}
