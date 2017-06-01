@@ -42,6 +42,7 @@ public class CacheConfiguration {
             cm.createCache(com.laundry.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(com.laundry.domain.PersistentToken.class.getName(), jcacheConfiguration);
             cm.createCache(com.laundry.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
+            cm.createCache(com.laundry.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
             cm.createCache(com.laundry.domain.WashMachine.class.getName(), jcacheConfiguration);
             cm.createCache(com.laundry.domain.Order.class.getName(), jcacheConfiguration);
             cm.createCache(com.laundry.domain.Order.class.getName() + ".machines", jcacheConfiguration);

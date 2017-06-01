@@ -59,19 +59,24 @@ export class OrderDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.order.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.orderService.update(this.order));
+                this.orderService.update(this.order), false);
         } else {
             this.subscribeToSaveResponse(
-                this.orderService.create(this.order));
+                this.orderService.create(this.order), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Order>) {
+    private subscribeToSaveResponse(result: Observable<Order>, isCreated: boolean) {
         result.subscribe((res: Order) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Order) {
+    private onSaveSuccess(result: Order, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? `A new Order is created with identifier ${result.id}`
+            : `A Order is updated with identifier ${result.id}`,
+            null, null);
+
         this.eventManager.broadcast({ name: 'orderListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

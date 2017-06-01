@@ -20,4 +20,6 @@ export * from './sessions/sessions.route';
 export * from './sessions/session.model';
 export * from './settings/settings.component';
 export * from './settings/settings.route';
+export * from './social/social-register.component';
+export * from './social/social.route';
 export * from './account.route';

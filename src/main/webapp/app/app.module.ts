@@ -20,7 +20,6 @@ import {
     FooterComponent,
     ProfileService,
     PageRibbonComponent,
-    ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
 
@@ -40,7 +39,6 @@ import {
         NavbarComponent,
         ErrorComponent,
         PageRibbonComponent,
-        ActiveMenuDirective,
         FooterComponent
     ],
     providers: [

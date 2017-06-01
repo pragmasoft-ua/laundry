@@ -1,9 +1,9 @@
 <div>
     <h2>
-        <span jhiTranslate="laundryApp.order.home.title">Orders</span>
+        <span>Orders</span>
         <button class="btn btn-primary float-right create-order" [routerLink]="['/', { outlets: { popup: ['order-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="laundryApp.order.home.createLabel">
+            <span >
             Create new Order
             </span>
         </button>
@@ -16,14 +16,14 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span jhiTranslate="global.field.id">ID</span></th>
-            <th><span jhiTranslate="laundryApp.order.startOn">Start On</span></th>
-            <th><span jhiTranslate="laundryApp.order.durationHours">Duration Hours</span></th>
-            <th><span jhiTranslate="laundryApp.order.weightKg">Weight Kg</span></th>
-            <th><span jhiTranslate="laundryApp.order.total">Total</span></th>
-            <th><span jhiTranslate="laundryApp.order.customer">Customer</span></th>
-            <th><span jhiTranslate="laundryApp.order.price">Price</span></th>
-            <th><span jhiTranslate="laundryApp.order.machine">Machine</span></th>
+            <th><span>ID</span></th>
+            <th><span>Start On</span></th>
+            <th><span>Duration Hours</span></th>
+            <th><span>Weight Kg</span></th>
+            <th><span>Total</span></th>
+            <th><span>Customer</span></th>
+            <th><span>Price</span></th>
+            <th><span>Machine</span></th>
             <th></th>
             </tr>
             </thead>
@@ -53,21 +53,21 @@
                                 [routerLink]="['../order', order.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                            <span class="hidden-md-down">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'order/'+ order.id + '/edit'} }]"
                                 replaceUrl="true"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                            <span class="hidden-md-down">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'order/'+ order.id + '/delete'} }]"
                                 replaceUrl="true"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="hidden-md-down">Delete</span>
                         </button>
                     </div>
                 </td>

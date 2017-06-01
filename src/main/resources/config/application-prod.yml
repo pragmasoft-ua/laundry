@@ -22,8 +22,8 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/laundry?useUnicode=true&characterEncoding=utf8&useSSL=false
-        username: root
-        password:
+        username: laundry
+        password: l@undry
         hikari:
             data-source-properties:
                 cachePrepStmts: true
@@ -93,7 +93,7 @@ jhipster:
     security:
         remember-me:
             # security key (this key should be unique for your application, and kept secret)
-            key: 6ca36c60bbdd1b9902f48c63574e6c4dadd9fc65
+            key: edd7ea884effe5010cdcade752edf7b2931f1b7e
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: laundry@localhost
         base-url: http://my-server-url-to-change # Modify according to your server's URL

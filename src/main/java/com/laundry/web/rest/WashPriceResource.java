@@ -28,7 +28,7 @@ public class WashPriceResource {
     private final Logger log = LoggerFactory.getLogger(WashPriceResource.class);
 
     private static final String ENTITY_NAME = "washPrice";
-        
+
     private final WashPriceRepository washPriceRepository;
 
     public WashPriceResource(WashPriceRepository washPriceRepository) {
@@ -86,8 +86,7 @@ public class WashPriceResource {
     @Timed
     public List<WashPrice> getAllWashPrices() {
         log.debug("REST request to get all WashPrices");
-        List<WashPrice> washPrices = washPriceRepository.findAll();
-        return washPrices;
+        return washPriceRepository.findAll();
     }
 
     /**
@@ -117,5 +116,4 @@ public class WashPriceResource {
         washPriceRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

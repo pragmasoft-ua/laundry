@@ -1,10 +1,9 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "com.laundry",
-      "nativeLanguage": "ru"
+      "packageName": "com.laundry"
     },
-    "jhipsterVersion": "4.5.1",
+    "jhipsterVersion": "4.5.2",
     "baseName": "laundry",
     "packageName": "com.laundry",
     "packageFolder": "com/laundry",
@@ -14,25 +13,42 @@
     "clusteredHttpSession": false,
     "websocket": false,
     "databaseType": "sql",
-    "devDatabaseType": "h2Disk",
+    "devDatabaseType": "mysql",
     "prodDatabaseType": "mysql",
     "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
-    "enableSocialSignIn": false,
-    "rememberMeKey": "6ca36c60bbdd1b9902f48c63574e6c4dadd9fc65",
+    "enableSocialSignIn": true,
+    "rememberMeKey": "edd7ea884effe5010cdcade752edf7b2931f1b7e",
     "clientFramework": "angular2",
     "useSass": true,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
     "testFrameworks": [],
     "jhiPrefix": "jhi",
-    "enableTranslation": true,
-    "nativeLanguage": "ru",
-    "languages": [
-      "ru",
-      "en"
-    ]
+    "otherModules": [
+      {
+        "name": "generator-jhipster-nav-element",
+        "version": "1.2.2"
+      },
+      {
+        "name": "generator-jhipster-docker",
+        "version": "2.2.0"
+      },
+      {
+        "name": "generator-jhipster-bootstrap-material-design",
+        "version": "3.5.1"
+      },
+      {
+        "name": "generator-jhipster-spring-social-connectors",
+        "version": "0.0.1"
+      },
+      {
+        "name": "generator-jhipster-angular-ui",
+        "version": "0.0.2"
+      }
+    ],
+    "enableTranslation": false
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { WashMachine } from './wash-machine.model';
 import { WashMachinePopupService } from './wash-machine-popup.service';
@@ -19,6 +19,7 @@ export class WashMachineDeleteDialogComponent {
     constructor(
         private washMachineService: WashMachineService,
         public activeModal: NgbActiveModal,
+        private alertService: AlertService,
         private eventManager: EventManager
     ) {
     }
@@ -35,6 +36,7 @@ export class WashMachineDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
+        this.alertService.success(`A Wash Machine is deleted with identifier ${id}`, null, null);
     }
 }
 

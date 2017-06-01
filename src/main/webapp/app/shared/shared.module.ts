@@ -14,6 +14,8 @@ import {
     LoginModalService,
     Principal,
     HasAnyAuthorityDirective,
+    JhiSocialComponent,
+    SocialService,
     JhiLoginModalComponent
 } from './';
 
@@ -23,6 +25,7 @@ import {
         LaundrySharedCommonModule
     ],
     declarations: [
+        JhiSocialComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective
     ],
@@ -35,12 +38,14 @@ import {
         Principal,
         CSRFService,
         AuthServerProvider,
+        SocialService,
         UserService,
         DatePipe
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [
         LaundrySharedCommonModule,
+        JhiSocialComponent,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
         DatePipe

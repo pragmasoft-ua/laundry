@@ -28,7 +28,7 @@ public class OrderResource {
     private final Logger log = LoggerFactory.getLogger(OrderResource.class);
 
     private static final String ENTITY_NAME = "order";
-        
+
     private final OrderRepository orderRepository;
 
     public OrderResource(OrderRepository orderRepository) {
@@ -86,8 +86,7 @@ public class OrderResource {
     @Timed
     public List<Order> getAllOrders() {
         log.debug("REST request to get all Orders");
-        List<Order> orders = orderRepository.findAllWithEagerRelationships();
-        return orders;
+        return orderRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -117,5 +116,4 @@ public class OrderResource {
         orderRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
 }

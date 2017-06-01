@@ -18,7 +18,7 @@
             "fieldType": "Boolean"
         }
     ],
-    "changelogDate": "20170523090842",
+    "changelogDate": "20170601181524",
     "entityTableName": "wash_machine",
     "dto": "no",
     "pagination": "no",

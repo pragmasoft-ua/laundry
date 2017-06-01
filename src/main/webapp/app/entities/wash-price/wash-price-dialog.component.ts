@@ -40,19 +40,24 @@ export class WashPriceDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.washPrice.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.washPriceService.update(this.washPrice));
+                this.washPriceService.update(this.washPrice), false);
         } else {
             this.subscribeToSaveResponse(
-                this.washPriceService.create(this.washPrice));
+                this.washPriceService.create(this.washPrice), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<WashPrice>) {
+    private subscribeToSaveResponse(result: Observable<WashPrice>, isCreated: boolean) {
         result.subscribe((res: WashPrice) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: WashPrice) {
+    private onSaveSuccess(result: WashPrice, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? `A new Wash Price is created with identifier ${result.id}`
+            : `A Wash Price is updated with identifier ${result.id}`,
+            null, null);
+
         this.eventManager.broadcast({ name: 'washPriceListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

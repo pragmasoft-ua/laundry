@@ -17,7 +17,7 @@ export const orderRoute: Routes = [
         component: OrderComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'laundryApp.order.home.title'
+            pageTitle: 'Orders'
         },
         canActivate: [UserRouteAccessService]
     }, {
@@ -25,7 +25,7 @@ export const orderRoute: Routes = [
         component: OrderDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'laundryApp.order.home.title'
+            pageTitle: 'Orders'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -37,7 +37,7 @@ export const orderPopupRoute: Routes = [
         component: OrderPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'laundryApp.order.home.title'
+            pageTitle: 'Orders'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -47,7 +47,7 @@ export const orderPopupRoute: Routes = [
         component: OrderPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'laundryApp.order.home.title'
+            pageTitle: 'Orders'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -57,7 +57,7 @@ export const orderPopupRoute: Routes = [
         component: OrderDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'laundryApp.order.home.title'
+            pageTitle: 'Orders'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

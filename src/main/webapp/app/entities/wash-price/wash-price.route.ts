@@ -16,16 +16,16 @@ export const washPriceRoute: Routes = [
         path: 'wash-price',
         component: WashPriceComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washPrice.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashPrices'
         },
         canActivate: [UserRouteAccessService]
     }, {
         path: 'wash-price/:id',
         component: WashPriceDetailComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washPrice.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashPrices'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -36,8 +36,8 @@ export const washPricePopupRoute: Routes = [
         path: 'wash-price-new',
         component: WashPricePopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washPrice.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashPrices'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -46,8 +46,8 @@ export const washPricePopupRoute: Routes = [
         path: 'wash-price/:id/edit',
         component: WashPricePopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washPrice.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashPrices'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -56,8 +56,8 @@ export const washPricePopupRoute: Routes = [
         path: 'wash-price/:id/delete',
         component: WashPriceDeletePopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washPrice.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashPrices'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

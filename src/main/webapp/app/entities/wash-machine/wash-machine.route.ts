@@ -16,16 +16,16 @@ export const washMachineRoute: Routes = [
         path: 'wash-machine',
         component: WashMachineComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washMachine.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashMachines'
         },
         canActivate: [UserRouteAccessService]
     }, {
         path: 'wash-machine/:id',
         component: WashMachineDetailComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washMachine.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashMachines'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -36,8 +36,8 @@ export const washMachinePopupRoute: Routes = [
         path: 'wash-machine-new',
         component: WashMachinePopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washMachine.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashMachines'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -46,8 +46,8 @@ export const washMachinePopupRoute: Routes = [
         path: 'wash-machine/:id/edit',
         component: WashMachinePopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washMachine.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashMachines'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -56,8 +56,8 @@ export const washMachinePopupRoute: Routes = [
         path: 'wash-machine/:id/delete',
         component: WashMachineDeletePopupComponent,
         data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'laundryApp.washMachine.home.title'
+            authorities: ['ROLE_USER'],
+            pageTitle: 'WashMachines'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

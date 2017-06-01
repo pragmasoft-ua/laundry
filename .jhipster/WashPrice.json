@@ -16,7 +16,7 @@
             "fieldType": "ZonedDateTime"
         }
     ],
-    "changelogDate": "20170523090844",
+    "changelogDate": "20170601181526",
     "entityTableName": "wash_price",
     "dto": "no",
     "pagination": "no",

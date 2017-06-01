@@ -77,18 +77,18 @@ jhipster:
         queue-capacity: 10000
     # To test logstash appender
     logging:
-            logstash:
-                enabled: true
-                host: localhost
-                port: 5000
-                queue-size: 512
+        logstash:
+            enabled: true
+            host: localhost
+            port: 5000
+            queue-size: 512
     mail:
         from: test@localhost
         base-url: http://127.0.0.1:8080
     security:
         remember-me:
             # security key (this key should be unique for your application, and kept secret)
-            key: 6ca36c60bbdd1b9902f48c63574e6c4dadd9fc65
+            key: edd7ea884effe5010cdcade752edf7b2931f1b7e
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         logs: # Reports Dropwizard metrics in the logs

@@ -62,7 +62,7 @@
             "fieldValidateRulesMin": 0
         }
     ],
-    "changelogDate": "20170523090843",
+    "changelogDate": "20170601181525",
     "entityTableName": "order",
     "dto": "no",
     "pagination": "no",

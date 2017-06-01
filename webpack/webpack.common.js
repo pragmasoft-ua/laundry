@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StringReplacePlugin = require('string-replace-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin")
 const path = require('path');
 
 module.exports = function (options) {
@@ -94,21 +93,11 @@ module.exports = function (options) {
                 { from: './node_modules/swagger-ui/dist', to: 'swagger-ui/dist' },
                 { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui' },
                 { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
-                { from: './src/main/webapp/robots.txt', to: 'robots.txt' },
-                { from: './src/main/webapp/i18n', to: 'i18n' }
+                { from: './src/main/webapp/robots.txt', to: 'robots.txt' }
             ]),
             new webpack.ProvidePlugin({
                 $: "jquery",
                 jQuery: "jquery"
-            }),
-            new MergeJsonWebpackPlugin({
-                output: {
-                    groupBy: [
-                        { pattern: "./src/main/webapp/i18n/ru/*.json", fileName: "./target/www/i18n/ru/all.json" },
-                        { pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./target/www/i18n/en/all.json" }
-                        // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
-                    ]
-                }
             }),
             new HtmlWebpackPlugin({
                 template: './src/main/webapp/index.html',

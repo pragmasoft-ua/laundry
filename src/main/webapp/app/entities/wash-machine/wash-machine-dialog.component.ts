@@ -40,19 +40,24 @@ export class WashMachineDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.washMachine.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.washMachineService.update(this.washMachine));
+                this.washMachineService.update(this.washMachine), false);
         } else {
             this.subscribeToSaveResponse(
-                this.washMachineService.create(this.washMachine));
+                this.washMachineService.create(this.washMachine), true);
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<WashMachine>) {
+    private subscribeToSaveResponse(result: Observable<WashMachine>, isCreated: boolean) {
         result.subscribe((res: WashMachine) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: WashMachine) {
+    private onSaveSuccess(result: WashMachine, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? `A new Wash Machine is created with identifier ${result.id}`
+            : `A Wash Machine is updated with identifier ${result.id}`,
+            null, null);
+
         this.eventManager.broadcast({ name: 'washMachineListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

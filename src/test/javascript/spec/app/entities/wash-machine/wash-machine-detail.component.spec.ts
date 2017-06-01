@@ -32,11 +32,8 @@ describe('Component Tests', () => {
                     WashMachineService,
                     EventManager
                 ]
-            }).overrideComponent(WashMachineDetailComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(WashMachineDetailComponent, '')
+            .compileComponents();
         }));
 
         beforeEach(() => {

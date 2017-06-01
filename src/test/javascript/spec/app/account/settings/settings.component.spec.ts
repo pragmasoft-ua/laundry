@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { Observable } from 'rxjs/Rx';
-import { JhiLanguageHelper } from '../../../../../../main/webapp/app/shared';
 import { LaundryTestModule } from '../../../test.module';
 import { Principal, AccountService } from '../../../../../../main/webapp/app/shared';
 import { SettingsComponent } from '../../../../../../main/webapp/app/account/settings/settings.component';
@@ -30,16 +29,9 @@ describe('Component Tests', () => {
                         provide: AccountService,
                         useClass: MockAccountService
                     },
-                    {
-                        provide: JhiLanguageHelper,
-                        useValue: null
-                    },
                 ]
-            }).overrideComponent(SettingsComponent, {
-                set: {
-                    template: ''
-                }
-            }).compileComponents();
+            }).overrideTemplate(SettingsComponent, '')
+            .compileComponents();
         }));
 
         beforeEach(() => {
@@ -57,7 +49,7 @@ describe('Component Tests', () => {
 
                 activated: true,
                 email: 'john.doe@mail.com',
-                langKey: 'ru',
+                langKey: 'en',
                 login: 'john'
             };
             mockPrincipal.setResponse(accountValues);

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { EventManager, ParseLinks, PaginationUtil, AlertService } from 'ng-jhipster';
 
 import { WashPrice } from './wash-price.model';
 import { WashPriceService } from './wash-price.service';
