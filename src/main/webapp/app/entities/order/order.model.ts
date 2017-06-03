@@ -13,4 +13,13 @@ export class Order {
         public machine?: WashMachine,
     ) {
     }
+    
+    calculateTotal() {
+    	let oldTotal = this.total;
+    	try {
+        	this.total = this.weightKg * this.durationHours * this.price.priceKgHour;
+    	} catch (error) {
+        	this.total = oldTotal;
+    	}
+    }
 }

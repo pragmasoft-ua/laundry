@@ -50,7 +50,13 @@ export class OrderDialogComponent implements OnInit {
             .subscribe((res: ResponseWrapper) => { this.washprices = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.washMachineService.query()
             .subscribe((res: ResponseWrapper) => { this.washmachines = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        
     }
+    
+    calculateTotal() {
+    	this.order.calculateTotal();
+    }
+    
     clear() {
         this.activeModal.dismiss('cancel');
     }

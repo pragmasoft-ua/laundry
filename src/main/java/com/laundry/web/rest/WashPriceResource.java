@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.laundry.domain.WashPrice;
 
 import com.laundry.repository.WashPriceRepository;
+import com.laundry.service.WashPriceService;
 import com.laundry.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -29,10 +32,10 @@ public class WashPriceResource {
 
     private static final String ENTITY_NAME = "washPrice";
 
-    private final WashPriceRepository washPriceRepository;
+    private final WashPriceService washPriceService;
 
-    public WashPriceResource(WashPriceRepository washPriceRepository) {
-        this.washPriceRepository = washPriceRepository;
+    public WashPriceResource(WashPriceService washPriceService) {
+        this.washPriceService = washPriceService;
     }
 
     /**
@@ -49,7 +52,7 @@ public class WashPriceResource {
         if (washPrice.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new washPrice cannot already have an ID")).body(null);
         }
-        WashPrice result = washPriceRepository.save(washPrice);
+        WashPrice result = washPriceService.save(washPrice);
         return ResponseEntity.created(new URI("/api/wash-prices/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,7 +74,7 @@ public class WashPriceResource {
         if (washPrice.getId() == null) {
             return createWashPrice(washPrice);
         }
-        WashPrice result = washPriceRepository.save(washPrice);
+        WashPrice result = washPriceService.save(washPrice);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, washPrice.getId().toString()))
             .body(result);
@@ -86,7 +89,7 @@ public class WashPriceResource {
     @Timed
     public List<WashPrice> getAllWashPrices() {
         log.debug("REST request to get all WashPrices");
-        return washPriceRepository.findAll();
+        return washPriceService.findAll();
     }
 
     /**
@@ -99,7 +102,7 @@ public class WashPriceResource {
     @Timed
     public ResponseEntity<WashPrice> getWashPrice(@PathVariable Long id) {
         log.debug("REST request to get WashPrice : {}", id);
-        WashPrice washPrice = washPriceRepository.findOne(id);
+        WashPrice washPrice = washPriceService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(washPrice));
     }
 
@@ -113,7 +116,39 @@ public class WashPriceResource {
     @Timed
     public ResponseEntity<Void> deleteWashPrice(@PathVariable Long id) {
         log.debug("REST request to delete WashPrice : {}", id);
-        washPriceRepository.delete(id);
+        washPriceService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+    
+    /**
+     * GET  /current-price : get current wash price per kg per hour.
+     * @return the ResponseEntity with status 200 (OK) and with body washPrice as {@link BigDecimal}, or with status 404 (Not Found)
+     */
+    @GetMapping("/current-price")
+    @Timed
+    public ResponseEntity<BigDecimal> getCurrentWashPrice() {
+        log.debug("REST request to get current WashPrice");
+        Optional<BigDecimal> washPrice = washPriceService.getCurrentPrice();
+        return ResponseUtil.wrapOrNotFound(washPrice);
+    }
+    
+    /**
+     * PUT  /current-price : Updates current wash price.
+     *
+     * @param washPrice the washPrice to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated washPrice,
+     * or with status 400 (Bad Request) if the washPrice is not valid,
+     * or with status 500 (Internal Server Error) if the washPrice couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PutMapping("/current-price")
+    @Timed
+    public ResponseEntity<BigDecimal> updateCurrentWashPrice(@Valid @RequestBody(required=true) BigDecimal washPrice) throws URISyntaxException {
+        log.debug("REST request to update current wash price : {}", washPrice);
+        washPriceService.setCurrentPrice(washPrice);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, washPrice.toString()))
+            .body(washPrice);
+    }
+    
 }

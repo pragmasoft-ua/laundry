@@ -32,7 +32,7 @@
         <div class="form-group">
             <label class="form-control-label" for="field_durationHours">Duration Hours</label>
             <input type="number" class="form-control" name="durationHours" id="field_durationHours"
-                [(ngModel)]="order.durationHours"
+                [(ngModel)]="order.durationHours" (ngModelChange)="calculateTotal()"
             required min="0" max="8" />
             <div [hidden]="!(editForm.controls.durationHours?.dirty && editForm.controls.durationHours?.invalid)">
                 <small class="form-text text-danger"
@@ -56,7 +56,7 @@
         <div class="form-group">
             <label class="form-control-label" for="field_weightKg">Weight Kg</label>
             <input type="number" class="form-control" name="weightKg" id="field_weightKg"
-                [(ngModel)]="order.weightKg"
+                [(ngModel)]="order.weightKg" (ngModelChange)="calculateTotal()"
             required min="0" max="100" />
             <div [hidden]="!(editForm.controls.weightKg?.dirty && editForm.controls.weightKg?.invalid)">
                 <small class="form-text text-danger"
@@ -78,6 +78,27 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="field_customer">Customer</label>
+            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="order.customer" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === order.customer?.id ? order.customer : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_price">Price</label>
+            <select class="form-control" id="field_price" name="price" [(ngModel)]="order.price" (ngModelChange)="calculateTotal()">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="washPriceOption.id === order.price?.id ? order.price : washPriceOption" *ngFor="let washPriceOption of washprices; trackBy: trackWashPriceById">{{washPriceOption.priceKgHour}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_machine">Machine</label>
+            <select class="form-control" id="field_machine" multiple name="machine" [(ngModel)]="order.machines">
+                <option [ngValue]="getSelected(order.machines, washMachineOption)" *ngFor="let washMachineOption of washmachines; trackBy: trackWashMachineById">{{washMachineOption.id}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label class="form-control-label" for="field_total">Total</label>
             <input type="number" class="form-control" name="total" id="field_total"
                 [(ngModel)]="order.total"
@@ -97,27 +118,7 @@
                 </small>
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="field_customer">Customer</label>
-            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="order.customer" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === order.customer?.id ? order.customer : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="field_price">Price</label>
-            <select class="form-control" id="field_price" name="price" [(ngModel)]="order.price" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="washPriceOption.id === order.price?.id ? order.price : washPriceOption" *ngFor="let washPriceOption of washprices; trackBy: trackWashPriceById">{{washPriceOption.priceKgHour}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="field_machine">Machine</label>
-            <select class="form-control" id="field_machine" multiple name="machine" [(ngModel)]="order.machines">
-                <option [ngValue]="getSelected(order.machines, washMachineOption)" *ngFor="let washMachineOption of washmachines; trackBy: trackWashMachineById">{{washMachineOption.id}}</option>
-            </select>
-        </div>
+        
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
