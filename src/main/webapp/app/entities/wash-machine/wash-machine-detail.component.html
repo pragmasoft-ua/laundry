@@ -1,14 +1,14 @@
 
 <div *ngIf="washMachine">
-    <h2><span>Wash Machine</span> {{washMachine.id}}</h2>
+    <h2><span>Стиральная машина</span> {{washMachine.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span>Capacity</span></dt>
+        <dt><span>Вместимость</span></dt>
         <dd>
             <span>{{washMachine.capacity}}</span>
         </dd>
-        <dt><span>Available</span></dt>
+        <dt><span>Исправность</span></dt>
         <dd>
             <span>{{washMachine.available}}</span>
         </dd>
@@ -17,13 +17,13 @@
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Назад</span>
     </button>
 
     <button type="button"
             [routerLink]="['/', { outlets: { popup: 'wash-machine/'+ washMachine.id + '/edit'} }]"
             replaceUrl="true"
             class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+        <span class="fa fa-pencil"></span>&nbsp;<span> Изменить</span>
     </button>
 </div>
