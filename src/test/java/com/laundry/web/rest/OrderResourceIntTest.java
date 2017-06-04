@@ -3,7 +3,7 @@ package com.laundry.web.rest;
 import com.laundry.LaundryApp;
 
 import com.laundry.domain.Order;
-import com.laundry.repository.OrderRepository;
+import com.laundry.service.OrderService;
 import com.laundry.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -56,8 +56,9 @@ public class OrderResourceIntTest {
     private static final BigDecimal UPDATED_TOTAL = new BigDecimal(1);
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderService orderService;
 
+    
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
@@ -77,7 +78,7 @@ public class OrderResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        OrderResource orderResource = new OrderResource(orderRepository);
+        OrderResource orderResource = new OrderResource(orderService);
         this.restOrderMockMvc = MockMvcBuilders.standaloneSetup(orderResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -107,7 +108,7 @@ public class OrderResourceIntTest {
     @Test
     @Transactional
     public void createOrder() throws Exception {
-        int databaseSizeBeforeCreate = orderRepository.findAll().size();
+        int databaseSizeBeforeCreate = orderService.findAll().size();
 
         // Create the Order
         restOrderMockMvc.perform(post("/api/orders")
@@ -116,7 +117,7 @@ public class OrderResourceIntTest {
             .andExpect(status().isCreated());
 
         // Validate the Order in the database
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeCreate + 1);
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getStartOn()).isEqualTo(DEFAULT_START_ON);
@@ -128,7 +129,7 @@ public class OrderResourceIntTest {
     @Test
     @Transactional
     public void createOrderWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = orderRepository.findAll().size();
+        int databaseSizeBeforeCreate = orderService.findAll().size();
 
         // Create the Order with an existing ID
         order.setId(1L);
@@ -140,14 +141,14 @@ public class OrderResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeCreate);
     }
 
     @Test
     @Transactional
     public void checkStartOnIsRequired() throws Exception {
-        int databaseSizeBeforeTest = orderRepository.findAll().size();
+        int databaseSizeBeforeTest = orderService.findAll().size();
         // set the field null
         order.setStartOn(null);
 
@@ -158,14 +159,14 @@ public class OrderResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(order)))
             .andExpect(status().isBadRequest());
 
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkDurationHoursIsRequired() throws Exception {
-        int databaseSizeBeforeTest = orderRepository.findAll().size();
+        int databaseSizeBeforeTest = orderService.findAll().size();
         // set the field null
         order.setDurationHours(null);
 
@@ -176,14 +177,14 @@ public class OrderResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(order)))
             .andExpect(status().isBadRequest());
 
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkWeightKgIsRequired() throws Exception {
-        int databaseSizeBeforeTest = orderRepository.findAll().size();
+        int databaseSizeBeforeTest = orderService.findAll().size();
         // set the field null
         order.setWeightKg(null);
 
@@ -194,14 +195,14 @@ public class OrderResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(order)))
             .andExpect(status().isBadRequest());
 
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkTotalIsRequired() throws Exception {
-        int databaseSizeBeforeTest = orderRepository.findAll().size();
+        int databaseSizeBeforeTest = orderService.findAll().size();
         // set the field null
         order.setTotal(null);
 
@@ -212,7 +213,7 @@ public class OrderResourceIntTest {
             .content(TestUtil.convertObjectToJsonBytes(order)))
             .andExpect(status().isBadRequest());
 
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeTest);
     }
 
@@ -220,7 +221,7 @@ public class OrderResourceIntTest {
     @Transactional
     public void getAllOrders() throws Exception {
         // Initialize the database
-        orderRepository.saveAndFlush(order);
+        orderService.saveAndFlush(order);
 
         // Get all the orderList
         restOrderMockMvc.perform(get("/api/orders?sort=id,desc"))
@@ -237,7 +238,7 @@ public class OrderResourceIntTest {
     @Transactional
     public void getOrder() throws Exception {
         // Initialize the database
-        orderRepository.saveAndFlush(order);
+        orderService.saveAndFlush(order);
 
         // Get the order
         restOrderMockMvc.perform(get("/api/orders/{id}", order.getId()))
@@ -262,11 +263,11 @@ public class OrderResourceIntTest {
     @Transactional
     public void updateOrder() throws Exception {
         // Initialize the database
-        orderRepository.saveAndFlush(order);
-        int databaseSizeBeforeUpdate = orderRepository.findAll().size();
+        orderService.saveAndFlush(order);
+        int databaseSizeBeforeUpdate = orderService.findAll().size();
 
         // Update the order
-        Order updatedOrder = orderRepository.findOne(order.getId());
+        Order updatedOrder = orderService.findOne(order.getId());
         updatedOrder
             .startOn(UPDATED_START_ON)
             .durationHours(UPDATED_DURATION_HOURS)
@@ -279,7 +280,7 @@ public class OrderResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the Order in the database
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeUpdate);
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getStartOn()).isEqualTo(UPDATED_START_ON);
@@ -291,7 +292,7 @@ public class OrderResourceIntTest {
     @Test
     @Transactional
     public void updateNonExistingOrder() throws Exception {
-        int databaseSizeBeforeUpdate = orderRepository.findAll().size();
+        int databaseSizeBeforeUpdate = orderService.findAll().size();
 
         // Create the Order
 
@@ -302,7 +303,7 @@ public class OrderResourceIntTest {
             .andExpect(status().isCreated());
 
         // Validate the Order in the database
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
@@ -310,8 +311,8 @@ public class OrderResourceIntTest {
     @Transactional
     public void deleteOrder() throws Exception {
         // Initialize the database
-        orderRepository.saveAndFlush(order);
-        int databaseSizeBeforeDelete = orderRepository.findAll().size();
+        orderService.saveAndFlush(order);
+        int databaseSizeBeforeDelete = orderService.findAll().size();
 
         // Get the order
         restOrderMockMvc.perform(delete("/api/orders/{id}", order.getId())
@@ -319,7 +320,7 @@ public class OrderResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<Order> orderList = orderRepository.findAll();
+        List<Order> orderList = orderService.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeDelete - 1);
     }
 

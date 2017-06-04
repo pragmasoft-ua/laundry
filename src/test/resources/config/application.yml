@@ -23,15 +23,14 @@ spring:
         type: none
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:laundry;DB_CLOSE_DELAY=-1
-        name:
-        username:
-        password:
+        url: jdbc:mysql://localhost:3306/laundry?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: laundry
+        password: l@undry
     jpa:
-        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
-        database: H2
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: MYSQL
+        show-sql: true
         open-in-view: false
-        show-sql: false
         hibernate:
             ddl-auto: none
             naming:

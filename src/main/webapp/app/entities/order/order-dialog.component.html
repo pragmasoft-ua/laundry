@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_durationHours">Продолжительность ч</label>
+            <label class="form-control-label" for="field_durationHours">Продолжительность, часов</label>
             <input type="number" class="form-control" name="durationHours" id="field_durationHours"
                 [(ngModel)]="order.durationHours" (ngModelChange)="calculateTotal()"
             required min="0" max="8" />
@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_weightKg">Вес кг</label>
+            <label class="form-control-label" for="field_weightKg">Вес, кг</label>
             <input type="number" class="form-control" name="weightKg" id="field_weightKg"
                 [(ngModel)]="order.weightKg" (ngModelChange)="calculateTotal()"
             required min="0" max="100" />
@@ -77,46 +77,18 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
+        
+        <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group">
             <label for="field_customer">Клиент</label>
             <select class="form-control" id="field_customer" name="customer" [(ngModel)]="order.customer" >
                 <option [ngValue]="null"></option>
                 <option [ngValue]="userOption.id === order.customer?.id ? order.customer : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
         </div>
+        
         <div class="form-group">
-            <label for="field_price">Цена</label>
-            <select class="form-control" id="field_price" name="price" [(ngModel)]="order.price" (ngModelChange)="calculateTotal()">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="washPriceOption.id === order.price?.id ? order.price : washPriceOption" *ngFor="let washPriceOption of washprices; trackBy: trackWashPriceById">{{washPriceOption.priceKgHour}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="field_machine">Машина</label>
-            <select class="form-control" id="field_machine" multiple name="machine" [(ngModel)]="order.machines">
-                <option [ngValue]="getSelected(order.machines, washMachineOption)" *ngFor="let washMachineOption of washmachines; trackBy: trackWashMachineById">{{washMachineOption.id}}</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label class="form-control-label" for="field_total">Общая стоимость</label>
-            <input type="number" class="form-control" name="total" id="field_total"
-                [(ngModel)]="order.total"
-            required min="0" />
-            <div [hidden]="!(editForm.controls.total?.dirty && editForm.controls.total?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.total?.errors?.required">
-                    Это поле должно быть запонено.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.total?.errors?.min">
-                    Это поле не должно равняться 0.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.total?.errors?.number">
-                    Это поле должно содержать только цифры.
-                </small>
-            </div>
+            <div>Общая стоимость</div>
+            <div class="lead "><em>{{order.total}}</em> грн</div>
         </div>
 
     </div>

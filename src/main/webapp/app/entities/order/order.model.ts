@@ -15,7 +15,7 @@ export class Order {
     }
 
     calculateTotal() {
-        const oldTotal = this.total;
+        const oldTotal = this.total || 0.0;
         try {this.total = this.weightKg * this.durationHours * this.price.priceKgHour; } catch (error) { this.total = oldTotal; }
     }
 }

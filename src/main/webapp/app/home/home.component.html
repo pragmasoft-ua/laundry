@@ -7,10 +7,10 @@
         <p class="lead">Это ваша домашняя страница</p>
 
         <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <span *ngIf="account"
-                   > Вы вошли, как пользователь "{{account.login}}". </span>
-            </div>
+            <p *ngSwitchCase="true">
+             <span *ngIf="account"> {{account.firstName}} {{account.firstName}}, </span>добро пожаловать в систему управления прачечной. Здесь вы можете <a class="link" routerLink="order">просмотреть ваши заказы</a> или
+            <a class="link" [routerLink]="['/', { outlets: { popup: ['order-new'] } }]">оформить новый заказ</a>.
+            </p>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span>Если вы хотите </span>
@@ -22,11 +22,5 @@
                 <a class="alert-link" routerLink="register">Зарегестрируйте новый</a>
             </div>
         </div>
-
-        <p *ngIf="isAuthenticated()">
-            {{account.login}}, добро пожаловать в систему управления прачечной. Здесь вы можете <a class="link" routerLink="order">просмотреть ваши заказы</a> или
-            <a class="link" [routerLink]="['/', { outlets: { popup: ['order-new'] } }]">оформить новый заказ</a>.
-        </p>
-
     </div>
 </div>
