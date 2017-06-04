@@ -14,10 +14,4 @@ export class Order {
     ) {
     }
 
-    calculateTotal() {
-        const weight = this.weightKg || 0;
-        const duration = this.durationHours || 0;
-        const price = this.price ? this.price.priceKgHour : 0;
-        this.total = weight * duration * price;
-    }
 }

@@ -23,6 +23,7 @@ export class OrderDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
     users: User[];
+    price: WashPrice;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -40,11 +41,15 @@ export class OrderDialogComponent implements OnInit {
         this.userService.query()
             .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
         this.washPriceService.getCurrent()
-            .subscribe((res: ResponseWrapper) => { this.order.price = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: ResponseWrapper) => { this.price = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     calculateTotal() {
-      this.order.calculateTotal();
+      console.log(this.order);
+      const weight = this.order.weightKg || 0;
+      const duration = this.order.durationHours || 0;
+      const price = this.price ? this.price.priceKgHour : 0;
+      this.order.total = weight * duration * price;
     }
 
     clear() {
