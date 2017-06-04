@@ -1,25 +1,31 @@
 package com.laundry.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.laundry.domain.WashPrice;
-
-import com.laundry.repository.WashPriceRepository;
-import com.laundry.service.WashPriceService;
-import com.laundry.web.rest.util.HeaderUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codahale.metrics.annotation.Timed;
+import com.laundry.domain.WashPrice;
+import com.laundry.service.WashPriceService;
+import com.laundry.web.rest.util.HeaderUtil;
+
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing WashPrice.
@@ -121,14 +127,14 @@ public class WashPriceResource {
     }
     
     /**
-     * GET  /current-price : get current wash price per kg per hour.
+     * GET  /current-price : get current wash price.
      * @return the ResponseEntity with status 200 (OK) and with body washPrice as {@link BigDecimal}, or with status 404 (Not Found)
      */
     @GetMapping("/current-price")
     @Timed
-    public ResponseEntity<BigDecimal> getCurrentWashPrice() {
+    public ResponseEntity<WashPrice> getCurrentWashPrice() {
         log.debug("REST request to get current WashPrice");
-        Optional<BigDecimal> washPrice = washPriceService.getCurrentPrice();
+        Optional<WashPrice> washPrice = washPriceService.getCurrentPrice();
         return ResponseUtil.wrapOrNotFound(washPrice);
     }
     
@@ -143,12 +149,12 @@ public class WashPriceResource {
      */
     @PutMapping("/current-price")
     @Timed
-    public ResponseEntity<BigDecimal> updateCurrentWashPrice(@Valid @RequestBody(required=true) BigDecimal washPrice) throws URISyntaxException {
+    public ResponseEntity<WashPrice> updateCurrentWashPrice(@Valid @RequestBody(required=true) BigDecimal washPrice) throws URISyntaxException {
         log.debug("REST request to update current wash price : {}", washPrice);
-        washPriceService.setCurrentPrice(washPrice);
+        WashPrice newPriceEntry = washPriceService.setCurrentPrice(washPrice);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, washPrice.toString()))
-            .body(washPrice);
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, newPriceEntry.toString()))
+            .body(newPriceEntry);
     }
     
 }

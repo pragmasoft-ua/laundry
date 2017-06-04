@@ -16,7 +16,7 @@
             <label class="form-control-label" for="field_capacity">Вместимость</label>
             <input type="number" class="form-control" name="capacity" id="field_capacity"
                 [(ngModel)]="washMachine.capacity"
-            required min="0" max="100" />
+            required min="1" max="100" pattern="[0-9]*" />
             <div [hidden]="!(editForm.controls.capacity?.dirty && editForm.controls.capacity?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.capacity?.errors?.required">
@@ -24,14 +24,14 @@
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.capacity?.errors?.min">
-                    Это поле не должно равняться 0.
+                    Это поле не должно быть отрицательным.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.capacity?.errors?.max">
                     Вместимость не может быть такой большой.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.capacity?.errors?.number">
+                    [hidden]="!editForm.controls.capacity?.errors?.pattern">
                     Это поле должно содержать только цифры.
                 </small>
             </div>

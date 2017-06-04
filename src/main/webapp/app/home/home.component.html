@@ -4,22 +4,21 @@
     </div>
     <div class="col-md-9">
         <h1 class="display-4">Добро пожаловать, в нашу прачечную!</h1>
-        <p class="lead">Это ваша домашняя страница</p>
 
         <div [ngSwitch]="isAuthenticated()">
             <p *ngSwitchCase="true">
-             <span *ngIf="account"> {{account.firstName}} {{account.firstName}}, </span>добро пожаловать в систему управления прачечной. Здесь вы можете <a class="link" routerLink="order">просмотреть ваши заказы</a> или
+             <span *ngIf="account"> {{account.firstName}} {{account.lastName}}, </span>добро пожаловать в систему управления прачечной. Здесь вы можете <a class="link" routerLink="order">просмотреть ваши заказы</a> или
             <a class="link" [routerLink]="['/', { outlets: { popup: ['order-new'] } }]">оформить новый заказ</a>.
             </p>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span>Если вы хотите </span>
-                <a class="alert-link" (click)="login()">Войти</a><span>,вы можете попробовать стандартные аккаунты:<br/>- Администратор (логин="admin" и пароль="admin") <br/>- Пользователь (логин="user" и пароль="user").</span>
+                <a class="alert-link" (click)="login()">Войти</a><span>, вы можете попробовать стандартные аккаунты:<br/>- Администратор (логин="admin" и пароль="admin") <br/>- Пользователь (логин="user" и пароль="user").</span>
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span>У вас нет аккаунта?</span>
-                <a class="alert-link" routerLink="register">Зарегестрируйте новый</a>
+                <a class="alert-link" routerLink="register">Зарегистрируйтесь</a>
             </div>
         </div>
     </div>

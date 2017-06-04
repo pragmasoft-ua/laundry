@@ -10,6 +10,7 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 export class WashPriceService {
 
     private resourceUrl = 'api/wash-prices';
+    private currentPriceUrl = 'api/current-price';
 
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
@@ -37,6 +38,19 @@ export class WashPriceService {
             this.convertItemFromServer(jsonResponse);
             return jsonResponse;
         });
+    }
+
+    getCurrent(): Observable<ResponseWrapper> {
+        return this.http.get(this.currentPriceUrl)
+        .map((res: Response) => {
+            const jsonResponse = res.json();
+            if (jsonResponse.efferctiveTo) { this.convertItemFromServer(jsonResponse); }
+            return new ResponseWrapper(res.headers, jsonResponse, res.status);
+        });
+    }
+
+    setCurrent(price: number): Observable<Response> {
+        return this.http.put(this.currentPriceUrl, price);
     }
 
     query(req?: any): Observable<ResponseWrapper> {

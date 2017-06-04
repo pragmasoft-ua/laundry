@@ -1,16 +1,25 @@
 package com.laundry.web.rest;
 
-import com.laundry.LaundryApp;
-import com.laundry.domain.Authority;
-import com.laundry.domain.User;
-import com.laundry.repository.UserRepository;
-import com.laundry.security.AuthoritiesConstants;
-import com.laundry.service.MailService;
-import com.laundry.service.UserService;
-import com.laundry.service.dto.UserDTO;
-import com.laundry.service.mapper.UserMapper;
-import com.laundry.web.rest.errors.ExceptionTranslator;
-import com.laundry.web.rest.vm.ManagedUserVM;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.persistence.EntityManager;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,21 +35,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.laundry.LaundryApp;
+import com.laundry.domain.Authority;
+import com.laundry.domain.User;
+import com.laundry.repository.UserRepository;
+import com.laundry.security.AuthoritiesConstants;
+import com.laundry.service.MailService;
+import com.laundry.service.UserService;
+import com.laundry.service.dto.UserDTO;
+import com.laundry.service.mapper.UserMapper;
+import com.laundry.web.rest.errors.ExceptionTranslator;
+import com.laundry.web.rest.vm.ManagedUserVM;
 
 /**
  * Test class for the UserResource REST controller.

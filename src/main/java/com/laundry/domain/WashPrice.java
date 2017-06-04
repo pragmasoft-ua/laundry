@@ -100,10 +100,6 @@ public class WashPrice implements Serializable {
 
     @Override
     public String toString() {
-        return "WashPrice{" +
-            "id=" + getId() +
-            ", priceKgHour='" + getPriceKgHour() + "'" +
-            ", efferctiveTo='" + getEfferctiveTo() + "'" +
-            "}";
+        return getPriceKgHour().toString();
     }
 }

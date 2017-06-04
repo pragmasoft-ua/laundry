@@ -27,17 +27,18 @@ public class WashPriceService {
         this.repository = repository;
     }
 
-    public Optional<BigDecimal> getCurrentPrice() {
+    public Optional<WashPrice> getCurrentPrice() {
         log.debug("get current price") ;
-        return repository.findOneByEfferctiveToIsNull().map(WashPrice::getPriceKgHour);
+        return repository.findOneByEfferctiveToIsNull();
     }
 
-    public void setCurrentPrice(BigDecimal currentPrice) {
+    public WashPrice setCurrentPrice(BigDecimal currentPrice) {
         log.debug("set current price {}", currentPrice) ;
         Optional<WashPrice> old = repository.findOneByEfferctiveToIsNull();
         old.ifPresent( (existing) -> repository.save(existing.expire()));
         WashPrice current = new WashPrice(currentPrice);
         current = repository.save(current);
+        return current;
     }
 
 	public void delete(Long arg0) {

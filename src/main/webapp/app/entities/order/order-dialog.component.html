@@ -25,7 +25,7 @@
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.startOn?.errors?.ZonedDateTimelocal">
-                    Корректно введите дату и время.
+                    Корректно введите дату и время в формате ГГГГ-ММ-ДД ЧЧ:ММ
                 </small>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <label class="form-control-label" for="field_durationHours">Продолжительность, часов</label>
             <input type="number" class="form-control" name="durationHours" id="field_durationHours"
                 [(ngModel)]="order.durationHours" (ngModelChange)="calculateTotal()"
-            required min="0" max="8" />
+            required min="1" max="8" pattern="[0-9]*"/>
             <div [hidden]="!(editForm.controls.durationHours?.dirty && editForm.controls.durationHours?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.durationHours?.errors?.required">
@@ -48,7 +48,7 @@
                     Это поле не должно быть больше 8.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.durationHours?.errors?.number">
+                    [hidden]="!editForm.controls.durationHours?.errors?.pattern">
                     Это поле должно содержать только цифры.
                 </small>
             </div>
@@ -57,7 +57,7 @@
             <label class="form-control-label" for="field_weightKg">Вес, кг</label>
             <input type="number" class="form-control" name="weightKg" id="field_weightKg"
                 [(ngModel)]="order.weightKg" (ngModelChange)="calculateTotal()"
-            required min="0" max="100" />
+            required min="1" max="100" pattern="[0-9]*" />
             <div [hidden]="!(editForm.controls.weightKg?.dirty && editForm.controls.weightKg?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.weightKg?.errors?.required">
@@ -72,7 +72,7 @@
                     Это поле не должно быть больше 100.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.weightKg?.errors?.number">
+                    [hidden]="!editForm.controls.weightKg?.errors?.pattern">
                     Это поле должно содердать только цифры.
                 </small>
             </div>

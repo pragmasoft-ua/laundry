@@ -17,7 +17,7 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     @Query("select jhi_order from Order jhi_order where jhi_order.customer.login = ?#{principal.username}")
     List<Order> findByCustomerIsCurrentUser();
 
-    @Query("select distinct jhi_order from Order jhi_order left join fetch jhi_order.machines")
+    @Query("select distinct jhi_order from Order jhi_order left join fetch jhi_order.machines where jhi_order.customer.login = ?#{principal.username} order by jhi_order.startOn desc")
     List<Order> findAllWithEagerRelationships();
 
     @Query("select jhi_order from Order jhi_order left join fetch jhi_order.machines where jhi_order.id =:id")

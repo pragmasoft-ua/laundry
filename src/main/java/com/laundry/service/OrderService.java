@@ -2,7 +2,6 @@ package com.laundry.service;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -74,8 +73,8 @@ public class OrderService {
 
 	public Order create(Order order) {
 		final String login = SecurityUtils.getCurrentUserLogin();
-		final User user = userRepository.findOneByLogin(login).orElseThrow(() -> new IllegalStateException("User is not found in database by login " + login));
-		final WashPrice currentPrice = priceRepository.findOneByEfferctiveToIsNull().orElseThrow(() -> new IllegalStateException("Price is not configured; please ask admin to configure price"));
+		final User user = userRepository.findOneByLogin(login).orElseThrow(() -> new IllegalStateException("Пользователь не найден: " + login));
+		final WashPrice currentPrice = priceRepository.findOneByEfferctiveToIsNull().orElseThrow(() -> new IllegalStateException("Цена услуги не определена. Свяжитесь с администратором."));
 		final ZonedDateTime from = order.getStartOn();
 		final ZonedDateTime to = from.plus(order.getDurationHours(), ChronoUnit.HOURS);
     	List<WashMachine> availableMachines = washMachineRepository.findAllAvailableBetween(from, to);
@@ -94,7 +93,7 @@ public class OrderService {
 			orderedMachines.add(m);
 			if (weight <= 0) break;
 		}
-		if (weight > 0) throw new IllegalStateException("Not enough total capacity to handle extra " + weight);
+		if (weight > 0) throw new IllegalStateException("Недостаточно машин доступно в это время. Выберите другое время, или уменьшите вес на " + weight);
 		return orderedMachines;
 	}
     

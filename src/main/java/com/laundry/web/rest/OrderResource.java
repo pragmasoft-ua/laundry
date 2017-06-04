@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.laundry.domain.Order;
 
 import com.laundry.service.OrderService;
+import com.laundry.web.rest.errors.CustomParameterizedException;
 import com.laundry.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -49,10 +50,14 @@ public class OrderResource {
         if (order.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new order cannot already have an ID")).body(null);
         }
-        Order result = orderService.create(order);
-        return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        try {
+			Order result = orderService.create(order);
+			return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
+			    .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+			    .body(result);
+		} catch (IllegalStateException e) {
+			throw new CustomParameterizedException(e.getMessage());
+		}
     }
 
     /**
