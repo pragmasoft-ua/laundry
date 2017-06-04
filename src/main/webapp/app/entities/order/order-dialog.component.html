@@ -21,100 +21,100 @@
             <div [hidden]="!(editForm.controls.startOn?.dirty && editForm.controls.startOn?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.startOn?.errors?.required">
-                   This field is required.
+                    Это поле не должно быть пустым.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.startOn?.errors?.ZonedDateTimelocal">
-                    This field should be a date and time.
+                    Корректно введите дату и время.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_durationHours">Duration Hours</label>
+            <label class="form-control-label" for="field_durationHours">Продолжительность ч</label>
             <input type="number" class="form-control" name="durationHours" id="field_durationHours"
                 [(ngModel)]="order.durationHours" (ngModelChange)="calculateTotal()"
             required min="0" max="8" />
             <div [hidden]="!(editForm.controls.durationHours?.dirty && editForm.controls.durationHours?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.durationHours?.errors?.required">
-                   This field is required.
+                    Это поле не должно быть пустым.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.durationHours?.errors?.min">
-                    This field should be at least 0.
+                    Это поле не должно равняться 0.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.durationHours?.errors?.max">
-                    This field cannot be more than 8.
+                    Это поле не должно быть больше 8.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.durationHours?.errors?.number">
-                    This field should be a number.
+                    Это поле должно содержать только цифры.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_weightKg">Weight Kg</label>
+            <label class="form-control-label" for="field_weightKg">Вес кг</label>
             <input type="number" class="form-control" name="weightKg" id="field_weightKg"
                 [(ngModel)]="order.weightKg" (ngModelChange)="calculateTotal()"
             required min="0" max="100" />
             <div [hidden]="!(editForm.controls.weightKg?.dirty && editForm.controls.weightKg?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.weightKg?.errors?.required">
-                   This field is required.
+                   Это поле не должно быть пустым.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.weightKg?.errors?.min">
-                    This field should be at least 0.
+                    Это поле не должно равняться 0.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.weightKg?.errors?.max">
-                    This field cannot be more than 100.
+                    Это поле не должно быть больше 100.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.weightKg?.errors?.number">
-                    This field should be a number.
+                    Это поле должно содердать только цифры.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label for="field_customer">Customer</label>
+            <label for="field_customer">Клиент</label>
             <select class="form-control" id="field_customer" name="customer" [(ngModel)]="order.customer" >
                 <option [ngValue]="null"></option>
                 <option [ngValue]="userOption.id === order.customer?.id ? order.customer : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="field_price">Price</label>
+            <label for="field_price">Цена</label>
             <select class="form-control" id="field_price" name="price" [(ngModel)]="order.price" (ngModelChange)="calculateTotal()">
                 <option [ngValue]="null"></option>
                 <option [ngValue]="washPriceOption.id === order.price?.id ? order.price : washPriceOption" *ngFor="let washPriceOption of washprices; trackBy: trackWashPriceById">{{washPriceOption.priceKgHour}}</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="field_machine">Machine</label>
+            <label for="field_machine">Машина</label>
             <select class="form-control" id="field_machine" multiple name="machine" [(ngModel)]="order.machines">
                 <option [ngValue]="getSelected(order.machines, washMachineOption)" *ngFor="let washMachineOption of washmachines; trackBy: trackWashMachineById">{{washMachineOption.id}}</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label class="form-control-label" for="field_total">Total</label>
+            <label class="form-control-label" for="field_total">Общая стоимость</label>
             <input type="number" class="form-control" name="total" id="field_total"
                 [(ngModel)]="order.total"
             required min="0" />
             <div [hidden]="!(editForm.controls.total?.dirty && editForm.controls.total?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.total?.errors?.required">
-                   This field is required.
+                    Это поле должно быть запонено.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.total?.errors?.min">
-                    This field should be at least 0.
+                    Это поле не должно равняться 0.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.total?.errors?.number">
-                    This field should be a number.
+                    Это поле должно содержать только цифры.
                 </small>
             </div>
         </div>
@@ -122,10 +122,10 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;<span>Закрыть</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+            <span class="fa fa-save"></span>&nbsp;<span>Сохранить</span>
         </button>
     </div>
 </form>
