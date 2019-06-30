@@ -32,7 +32,14 @@ public class WashPrice implements Serializable {
     @Column(name = "efferctive_to")
     private ZonedDateTime efferctiveTo;
 
-    public Long getId() {
+    public WashPrice() {
+	}
+
+    public WashPrice(BigDecimal washPrice) {
+    	this.priceKgHour = washPrice;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -65,6 +72,11 @@ public class WashPrice implements Serializable {
     public void setEfferctiveTo(ZonedDateTime efferctiveTo) {
         this.efferctiveTo = efferctiveTo;
     }
+    
+    public WashPrice expire() {
+    	this.setEfferctiveTo(ZonedDateTime.now());
+    	return this;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -88,10 +100,6 @@ public class WashPrice implements Serializable {
 
     @Override
     public String toString() {
-        return "WashPrice{" +
-            "id=" + getId() +
-            ", priceKgHour='" + getPriceKgHour() + "'" +
-            ", efferctiveTo='" + getEfferctiveTo() + "'" +
-            "}";
+        return getPriceKgHour().toString();
     }
 }

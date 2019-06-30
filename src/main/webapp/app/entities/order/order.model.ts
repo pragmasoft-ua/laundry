@@ -13,4 +13,5 @@ export class Order {
         public machine?: WashMachine,
     ) {
     }
+
 }

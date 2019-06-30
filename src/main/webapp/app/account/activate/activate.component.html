@@ -1,15 +1,15 @@
 <div>
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <h1>Activation</h1>
+            <h1>Активация</h1>
 
             <div class="alert alert-success" *ngIf="success">
-                <span><strong>Your user account has been activated.</strong> Please </span>
-                <a class="alert-link" (click)="login()">sign in</a>.
+                <span><strong>Ваш аккаунт активирован.</strong> Please </span>
+                <a class="alert-link" (click)="login()">Войти</a>.
             </div>
 
             <div class="alert alert-danger" *ngIf="error">
-                <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
+                <strong>Ваш аккаунт не активен.</strong> Воспользуйтесь формой регистрации, что бы войти.
             </div>
 
         </div>

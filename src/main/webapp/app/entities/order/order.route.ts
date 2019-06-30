@@ -17,7 +17,7 @@ export const orderRoute: Routes = [
         component: OrderComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Orders'
+            pageTitle: 'Заказы'
         },
         canActivate: [UserRouteAccessService]
     }, {
@@ -25,7 +25,7 @@ export const orderRoute: Routes = [
         component: OrderDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Orders'
+            pageTitle: 'Заказ'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -37,7 +37,7 @@ export const orderPopupRoute: Routes = [
         component: OrderPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Orders'
+            pageTitle: 'Создать Заказ'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -47,7 +47,7 @@ export const orderPopupRoute: Routes = [
         component: OrderPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Orders'
+            pageTitle: 'Редактировать Заказ'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -57,7 +57,7 @@ export const orderPopupRoute: Routes = [
         component: OrderDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Orders'
+            pageTitle: 'Удалить Заказ'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

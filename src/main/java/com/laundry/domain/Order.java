@@ -120,6 +120,12 @@ public class Order implements Serializable {
         this.total = total;
     }
 
+    public void updateTotal() {
+    	final BigDecimal duration = BigDecimal.valueOf(this.getDurationHours());
+    	final BigDecimal weight = BigDecimal.valueOf(this.getWeightKg());
+        this.total = this.getPrice().getPriceKgHour().multiply(duration).multiply(weight); 
+    }
+    
     public User getCustomer() {
         return customer;
     }

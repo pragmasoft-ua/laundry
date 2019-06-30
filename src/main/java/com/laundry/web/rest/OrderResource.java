@@ -3,7 +3,8 @@ package com.laundry.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.laundry.domain.Order;
 
-import com.laundry.repository.OrderRepository;
+import com.laundry.service.OrderService;
+import com.laundry.web.rest.errors.CustomParameterizedException;
 import com.laundry.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -29,10 +30,10 @@ public class OrderResource {
 
     private static final String ENTITY_NAME = "order";
 
-    private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
-    public OrderResource(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public OrderResource(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     /**
@@ -49,10 +50,14 @@ public class OrderResource {
         if (order.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new order cannot already have an ID")).body(null);
         }
-        Order result = orderRepository.save(order);
-        return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        try {
+			Order result = orderService.create(order);
+			return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
+			    .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+			    .body(result);
+		} catch (IllegalStateException e) {
+			throw new CustomParameterizedException(e.getMessage());
+		}
     }
 
     /**
@@ -71,7 +76,7 @@ public class OrderResource {
         if (order.getId() == null) {
             return createOrder(order);
         }
-        Order result = orderRepository.save(order);
+        Order result = orderService.save(order);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, order.getId().toString()))
             .body(result);
@@ -86,7 +91,7 @@ public class OrderResource {
     @Timed
     public List<Order> getAllOrders() {
         log.debug("REST request to get all Orders");
-        return orderRepository.findAllWithEagerRelationships();
+        return orderService.findAllWithEagerRelationships();
     }
 
     /**
@@ -99,7 +104,7 @@ public class OrderResource {
     @Timed
     public ResponseEntity<Order> getOrder(@PathVariable Long id) {
         log.debug("REST request to get Order : {}", id);
-        Order order = orderRepository.findOneWithEagerRelationships(id);
+        Order order = orderService.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(order));
     }
 
@@ -113,7 +118,7 @@ public class OrderResource {
     @Timed
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         log.debug("REST request to delete Order : {}", id);
-        orderRepository.delete(id);
+        orderService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

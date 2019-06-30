@@ -11,7 +11,6 @@ import { OrderPopupService } from './order-popup.service';
 import { OrderService } from './order.service';
 import { User, UserService } from '../../shared';
 import { WashPrice, WashPriceService } from '../wash-price';
-import { WashMachine, WashMachineService } from '../wash-machine';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
@@ -23,12 +22,8 @@ export class OrderDialogComponent implements OnInit {
     order: Order;
     authorities: any[];
     isSaving: boolean;
-
     users: User[];
-
-    washprices: WashPrice[];
-
-    washmachines: WashMachine[];
+    price: WashPrice;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -36,7 +31,6 @@ export class OrderDialogComponent implements OnInit {
         private orderService: OrderService,
         private userService: UserService,
         private washPriceService: WashPriceService,
-        private washMachineService: WashMachineService,
         private eventManager: EventManager
     ) {
     }
@@ -46,11 +40,18 @@ export class OrderDialogComponent implements OnInit {
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.userService.query()
             .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
-        this.washPriceService.query()
-            .subscribe((res: ResponseWrapper) => { this.washprices = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
-        this.washMachineService.query()
-            .subscribe((res: ResponseWrapper) => { this.washmachines = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.washPriceService.getCurrent()
+            .subscribe((res: ResponseWrapper) => { this.price = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
+
+    calculateTotal() {
+      console.log(this.order);
+      const weight = this.order.weightKg || 0;
+      const duration = this.order.durationHours || 0;
+      const price = this.price ? this.price.priceKgHour : 0;
+      this.order.total = weight * duration * price;
+    }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -97,14 +98,6 @@ export class OrderDialogComponent implements OnInit {
     }
 
     trackUserById(index: number, item: User) {
-        return item.id;
-    }
-
-    trackWashPriceById(index: number, item: WashPrice) {
-        return item.id;
-    }
-
-    trackWashMachineById(index: number, item: WashMachine) {
         return item.id;
     }
 

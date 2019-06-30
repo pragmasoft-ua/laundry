@@ -1,7 +1,7 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myWashMachineLabel">Create or edit a Wash Machine</h4>
+        <h4 class="modal-title" id="myWashMachineLabel">Добавить или редактировать стиральную машину</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
@@ -13,31 +13,31 @@
                    [(ngModel)]="washMachine.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_capacity">Capacity</label>
+            <label class="form-control-label" for="field_capacity">Вместимость</label>
             <input type="number" class="form-control" name="capacity" id="field_capacity"
                 [(ngModel)]="washMachine.capacity"
-            required min="0" max="100" />
+            required min="1" max="100" pattern="[0-9]*" />
             <div [hidden]="!(editForm.controls.capacity?.dirty && editForm.controls.capacity?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.capacity?.errors?.required">
-                   This field is required.
+                    Это поле должно быть заполнено.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.capacity?.errors?.min">
-                    This field should be at least 0.
+                    Это поле не должно быть отрицательным.
                 </small>
                 <small class="form-text text-danger"
                     [hidden]="!editForm.controls.capacity?.errors?.max">
-                    This field cannot be more than 100.
+                    Вместимость не может быть такой большой.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.capacity?.errors?.number">
-                    This field should be a number.
+                    [hidden]="!editForm.controls.capacity?.errors?.pattern">
+                    Это поле должно содержать только цифры.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_available">Available</label>
+            <label class="form-control-label" for="field_available">Исправность</label>
             <input type="checkbox" class="form-control" name="available" id="field_available"
                 [(ngModel)]="washMachine.available"
              />
@@ -46,10 +46,10 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;<span>Закрыть</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+            <span class="fa fa-save"></span>&nbsp;<span>Сохранить</span>
         </button>
     </div>
 </form>

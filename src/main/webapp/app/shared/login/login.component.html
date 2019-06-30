@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title">Sign in</h4>
+    <h4 class="modal-title">Авторизироваться</h4>
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
     </button>
 </div>
@@ -7,36 +7,36 @@
     <div class="row">
         <div class="col-12">
             <div class="alert alert-danger" *ngIf="authenticationError">
-                <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                <strong>Невозможно авторизироваться!</strong> Попробуйте еще раз.
             </div>
         </div>
         <div class="col-md-6">
             <form class="form" role="form" (ngSubmit)="login()">
                 <div class="form-group">
-                    <label for="username">Login</label>
+                    <label for="username">Логин</label>
                     <input type="text" class="form-control" name="username" id="username" placeholder="Your username"
                     [(ngModel)]="username">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Пароль</label>
                     <input type="password" class="form-control" name="password" id="password" placeholder="Your password"
                            [(ngModel)]="password">
                 </div>
                 <div class="form-check">
                     <label class="form-check-label" for="rememberMe">
                         <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" [(ngModel)]="rememberMe" checked>
-                        <span>Remember me</span>
+                        <span>Запомнить меня</span>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" class="btn btn-primary">Авторизироваться</button>
             </form>
             <p></p>
             <div class="alert alert-warning">
-                <a class="alert-link" (click)="requestResetPassword()">Did you forget your password?</a>
+                <a class="alert-link" (click)="requestResetPassword()">Забыли пароль?</a>
             </div>
             <div class="alert alert-warning">
-                <span>You don't have an account yet?</span>
-                <a class="alert-link" (click)="register()">Register a new account</a>
+                <span>У вас еще нет аккаунта?</span>
+                <a class="alert-link" (click)="register()">Зарегестрировать новый</a>
             </div>
         </div>
         <div class="col-md-6">
@@ -44,7 +44,6 @@
             <jhi-social provider="google"></jhi-social>
             <jhi-social provider="facebook"></jhi-social>
             <jhi-social provider="twitter"></jhi-social>
-            <!-- jhipster-needle-add-social-button -->
         </div>
     </div>
 </div>
